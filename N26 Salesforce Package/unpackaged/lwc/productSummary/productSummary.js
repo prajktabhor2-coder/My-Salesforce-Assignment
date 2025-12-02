@@ -95,13 +95,9 @@ export default class ProductSummaryTable extends LightningElement {
               style: 'currency',
               currency: 'EUR'
             }).format(n);
-          }
-
-        
-          if (
-            (info.productName === 'Black' || info.productName === 'Metal') && n === 0
-          ) {
-            atmLabel = '0% (Free)';
+          }        
+          if( n === 0) {
+            atmLabel = 'Free';
           }
         }
 
