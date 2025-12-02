@@ -1,0 +1,179 @@
+{
+	"info": {
+		"_postman_id": "847d2ba7-91cb-48dc-9c2f-e91149ba7b9f",
+		"name": "My Collection",
+		"description": "### Welcome to Postman! This is your first collection. \n\nCollections are your starting point for building and testing APIs. You can use this one to:\n\n• Group related requests\n• Test your API in real-world scenarios\n• Document and share your requests\n\nUpdate the name and overview whenever you’re ready to make it yours.\n\n[Learn more about Postman Collections.](https://learning.postman.com/docs/collections/collections-overview/)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "50457523",
+		"_collection_link": "https://prajktabhor2-3047944.postman.co/workspace/67fb1d00-46cd-4ff4-808e-978ba1ca92d3/collection/50457523-847d2ba7-91cb-48dc-9c2f-e91149ba7b9f?action=share&source=collection_link&creator=50457523"
+	},
+	"item": [
+		{
+			"name": "Post data",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"// Validate required OAuth parameters before sending request",
+							"const requiredParams = ['client_id', 'client_secret', 'grant_type', 'username', 'password'];",
+							"const bodyParams = pm.request.body.urlencoded.toObject();",
+							"",
+							"console.log('Validating OAuth request parameters...');",
+							"",
+							"// Check for missing required parameters",
+							"const missingParams = requiredParams.filter(param => !bodyParams[param] || bodyParams[param].trim() === '');",
+							"",
+							"if (missingParams.length > 0) {",
+							"    console.error('Missing required parameters:', missingParams.join(', '));",
+							"    throw new Error(`Missing required OAuth parameters: ${missingParams.join(', ')}`);",
+							"}",
+							"",
+							"// Validate grant_type",
+							"if (bodyParams.grant_type !== 'password') {",
+							"    console.warn(`Grant type is '${bodyParams.grant_type}'. Expected 'password' for this OAuth flow.`);",
+							"}",
+							"",
+							"// Validate email format for username",
+							"const emailRegex = /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/;",
+							"if (!emailRegex.test(bodyParams.username)) {",
+							"    console.warn('Username does not appear to be a valid email format.');",
+							"}",
+							"",
+							"// Check parameter lengths",
+							"if (bodyParams.client_id.length < 20) {",
+							"    console.warn('client_id seems too short. Verify it is correct.');",
+							"}",
+							"",
+							"if (bodyParams.client_secret.length < 20) {",
+							"    console.warn('client_secret seems too short. Verify it is correct.');",
+							"}",
+							"",
+							"console.log('✓ All required parameters are present');",
+							"console.log('Request will be sent to:', pm.request.url.toString());"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "addTokenTo",
+							"value": "queryParams",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "client_id",
+							"value": "3MVG9YDQS5WtC11onrTiHsVnvVJPifXTceYHxu8clmiGd5Rjq3585rpXh57j9adbGYhfaD59Xu.cy4fxPUXEz",
+							"type": "text"
+						},
+						{
+							"key": "client_secret",
+							"value": "4B0CBAFF34E7069C96F78C3EC197138FE209238ABB60F00D348E14CCB97459C2",
+							"type": "text"
+						},
+						{
+							"key": "grant_type",
+							"value": "password",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "Salesforce@123Tki04lCmalKjGB7gwMTzOQH9",
+							"type": "text"
+						},
+						{
+							"key": "username",
+							"value": "prajktabhor@gmail.com",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://login.salesforce.com/services/oauth2/token",
+					"protocol": "https",
+					"host": [
+						"login",
+						"salesforce",
+						"com"
+					],
+					"path": [
+						"services",
+						"oauth2",
+						"token"
+					]
+				},
+				"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
+			},
+			"response": []
+		},
+		{
+			"name": "Get Request",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "00D6F0000028mGK!ARQAQF1s5JSJ9fbnLNIK.jTStKlHbcyYKQpO7L3TjkQCZ8PQamV1ylgOieQXfx3TcZtJiu2176UGWNa18NDTfkwLe44wSo4P",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://prajkta-lightning-dev-ed.my.salesforce.com/services/apexrest/n26/v1/contactinfo/BLK-DE-102",
+					"protocol": "https",
+					"host": [
+						"prajkta-lightning-dev-ed",
+						"my",
+						"salesforce",
+						"com"
+					],
+					"path": [
+						"services",
+						"apexrest",
+						"n26",
+						"v1",
+						"contactinfo",
+						"BLK-DE-102"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

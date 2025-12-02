@@ -1,0 +1,26 @@
+N26 Salesforce Assignment – Prajkta Bhor
+
+This repository contains my solution for the N26 Salesforce assignment.  
+It includes the Salesforce metadata (Apex, LWC, Connected App, Custom Metadata, etc.) and a Postman collection to test the exposed API.
+
+--------
+
+ 📁 Project Structure
+
+
+salesforce-metadata/
+  package.xml
+  connectedApps/               # N26_Connected_Application
+  classes/                     # Apex classes & tests
+  lwc/                         # productSummary LWC
+  customMetadata/              # Product_Pricing__mdt records
+  customObjects/               # Product_Pricing__mdt definition
+  objects/                     # Contact extra fields (Product__c, Home_Country__c, External_UUID__c)
+  profiles/                    # Integration Profile
+  flexipages/                  # Case_Record_Page Lightning Record Page
+
+postman/
+  N26_Product_API.postman_collection.json   # Postman requests for the APIs
+
+
+

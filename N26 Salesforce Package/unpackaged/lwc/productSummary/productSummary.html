@@ -1,0 +1,28 @@
+<template>
+  <lightning-card title="Customer product information">
+    <div class="slds-p-around_small">
+      <template if:true={isLoading}>
+        <lightning-spinner
+          alternative-text="Loading"
+          size="small">
+        </lightning-spinner>
+      </template>
+
+      <template if:true={error}>
+        <div class="error">{error}</div>
+      </template>
+      <template if:true={rows}>
+        <lightning-datatable
+          key-field="productName"
+          data={rows}
+          columns={columns}
+          hide-checkbox-column>
+        </lightning-datatable>
+      </template>
+
+      <template if:true={noRows}>
+        <div>No product pricing available for this contact.</div>
+      </template>
+    </div>
+  </lightning-card>
+</template>

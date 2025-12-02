@@ -1,0 +1,9 @@
+.highlight-row {
+  background-color: #fff8e6;
+  font-weight: 600;
+}
+
+.error {
+  color: #b71c1c;
+  padding: 0.5rem;
+}
